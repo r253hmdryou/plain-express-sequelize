@@ -11,7 +11,7 @@ import { errorHandler } from "routes";
  * error handling
  * @returns void
  */
-function testError() {
+function testError(): void {
 	test("error handling", async() => {
 		// 404 not found
 		{
@@ -34,6 +34,18 @@ function testError() {
 			expect(response.body).toEqual({
 				code: "internalServerError",
 				message: "Internal Server Error",
+			});
+		}
+
+		// 400 bad request
+		{
+			const response = await request(app)
+				.get(`/error`);
+
+			expect(response.status).toEqual(400);
+			expect(response.body).toEqual({
+				code: "badRequest",
+				message: "Bad Request",
 			});
 		}
 

@@ -1,5 +1,6 @@
 import http from "http";
 import app from "app";
+import { closeDatabase, sequelize } from "common/repository";
 
 main();
 
@@ -8,7 +9,16 @@ main();
  * @returns void
  */
 function main(): void {
+	console.log("main");
 	const server = app.listen(3000);
+
+	sequelize.authenticate()
+		.then(() => {
+			console.log("Connection to database has been established successfully.");
+		})
+		.catch((error) => {
+			console.error("Unable to connect to the database:", error);
+		});
 
 	process
 		.on("SIGINT", () => {
@@ -32,6 +42,15 @@ function gracefulShutdown(server: http.Server): void {
 			console.error(error);
 			process.exit(1);
 		}
-		process.exit(0);
+		console.log("closing database connection...");
+		closeDatabase()
+			.then(() => {
+				console.log("database connection closed.");
+				process.exit(0);
+			})
+			.catch((error) => {
+				console.error(error);
+				process.exit(1);
+			});
 	});
 }

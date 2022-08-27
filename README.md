@@ -24,5 +24,6 @@ docker-compose up -d --build
 test
 
 ```bash
+docker-compose up -d --build jestdb
 npm run test
 ```

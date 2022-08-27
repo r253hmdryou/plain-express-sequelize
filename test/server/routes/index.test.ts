@@ -9,7 +9,7 @@ import app from "app";
  * Hello World
  * @returns void
  */
-function testHelloWorld() {
+function testHelloWorld(): void {
 	test("Hello World", async() => {
 		{
 			const response = await request(app)

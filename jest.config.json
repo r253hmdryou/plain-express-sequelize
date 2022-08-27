@@ -13,7 +13,7 @@
 
   "collectCoverage": true,
   "coverageDirectory": "./coverage/",
-  "maxWorkers": "50%",
+  "maxWorkers": "4",
 
   "transform": {
     "^.+\\.(t|j)sx?$": ["@swc/jest"]
